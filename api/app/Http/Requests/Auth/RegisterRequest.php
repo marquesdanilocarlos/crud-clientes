@@ -10,7 +10,6 @@ use Illuminate\Http\Response;
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
@@ -20,7 +19,6 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * The validation rules that apply to the request.
      *
      * @return array
      */
@@ -36,7 +34,6 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * Overriding response.
      *
      * @return JSON
      */

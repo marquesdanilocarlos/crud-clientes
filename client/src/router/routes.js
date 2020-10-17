@@ -1,7 +1,7 @@
-import error404 from 'srcFolder/views/errors/404'
-import loginPage from 'srcFolder/views/login/index'
-import clientsPage from 'srcFolder/views/clients/index'
-import registerPage from 'srcFolder/views/clients/register'
+import error404 from 'srcFolder/components/errors/404'
+import loginPage from 'srcFolder/components/login/index'
+import clientsPage from 'srcFolder/components/clients/index'
+import registerPage from 'srcFolder/components/clients/register'
 
 export default [
     { path: '/', redirect: '/clientes' },

@@ -10,8 +10,8 @@ import store from './store'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const loginLayout = () => import('./views/layouts/login')
-const clientLayout = () => import('./views/layouts/client')
+const loginLayout = () => import('./layouts/login')
+const clientLayout = () => import('./layouts/client')
 Vue.component('loginLayout', loginLayout)
 Vue.component('clientLayout', clientLayout)
 
