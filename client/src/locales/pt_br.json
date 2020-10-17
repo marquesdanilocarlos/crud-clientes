@@ -10,6 +10,13 @@
         "password": "Senha"
     },
 
+    "register": {
+        "title": "Cadastre-se",
+        "register_now": "Cadastre-se aqui",
+        "login_info": "Já é cliente",
+        "register_info": "Ainda não é cliente?"
+    },
+
     "login": {
         "title": "Faça seu login"
     },

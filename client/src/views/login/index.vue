@@ -13,6 +13,14 @@
                     <button v-on:click.prevent="login()" type="submit" class="btn btn-primary btn-block">Entrar</button>
                 </div>
             </form>
+            <div class="text-center pt-12 pb-12">
+                <p>{{ $t('register.register_info') }}
+                    <router-link class="underline font-semibold" :to="{ name: 'cadastro' }">{{ $t('register.register_now')
+                        }}
+                    </router-link>
+                    .
+                </p>
+            </div>
         </div>
 	</loginLayout>
 </template>
@@ -83,28 +91,3 @@ export default {
 	},
 }
 </script>
-
-<style scoped>
-    .login-form {
-        width: 340px;
-        margin: 50px auto;
-        font-size: 15px;
-    }
-    .login-form form {
-        margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>

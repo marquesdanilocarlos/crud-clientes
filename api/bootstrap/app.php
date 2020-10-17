@@ -116,4 +116,6 @@ $app->router->group([
     require __DIR__.'/../routes/api.php';
 });
 
+app('translator')->setLocale('pt_BR');
+
 return $app;

@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
     // Guest
     if(to.meta.guest) {
         if(store.getters.isLogged)
-            return router.push({ name: 'adminDashboard' })
+            return router.push({ name: 'clients' })
         else
             return next()
     }

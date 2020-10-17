@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'process_success' => 'The process was successfully completed.',
+    'process_success' => 'Ação realizada com sucesso!.',
 ];
