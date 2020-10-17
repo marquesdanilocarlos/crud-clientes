@@ -1,0 +1,33 @@
+{
+    "success": "Sucesso!",
+    "error": "Erro!",
+    "copyright": "Copyright",
+
+    "fields": {
+        "first_name": "Primeiro Nome",
+        "last_name": "Último nome",
+        "email": "E-Mail",
+        "password": "Senha"
+    },
+
+    "login": {
+        "title": "Faça seu login"
+    },
+
+    "navbar": {
+        "dashboard": "Painel",
+        "other_menu": "Menu"
+    },
+
+    "logout": {
+        "title": "Sair",
+        "info": "Tem certeza que deseja sair ?"
+    },
+
+    "errors": {
+        "404": {
+            "title": "Oops! Não há nada por aqui",
+            "body": "A página está temporariamente indisponível."
+        }
+    }
+}
