@@ -8,15 +8,18 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_DATABASE: clientes
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
 
   nginx:
     container_name: nginx
     build: images/nginx
     volumes:
-      - ./clientes/api:/var/www/html
+      - ./api:/var/www/html
     command: nginx -g "daemon off;"
     links:
       - php
@@ -29,7 +32,7 @@ services:
     container_name: php
     build: images/php
     volumes:
-      - ./clientes/api:/var/www/html
+      - ./api:/var/www/html
     working_dir: /var/www/html/app/public
     command: php-fpm
     links:
