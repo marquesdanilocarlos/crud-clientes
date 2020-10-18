@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public $timestamps = false;
+
     protected $fillable = ['name'];
 
 
     public function clients()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class)->withPivot('client_id', 'tag_id');
     }
 }

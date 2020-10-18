@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -19,13 +21,15 @@ class ClientController extends Controller
         return response()->json($clients);
     }
 
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
         $client = new Client($request->all());
 
         if (!$client->save()) {
             return response()->json(['message' => __('general_words.process_fail')], 500);
         }
+
+        $this->relatedTags($request->selectedTags, $client);
 
         return response()->json(
             [
@@ -38,7 +42,7 @@ class ClientController extends Controller
 
     public function show(int $id)
     {
-        $client = Client::find($id);
+        $client = Client::with('tags')->find($id);
 
         if (empty($client)) {
             return response()->json(['message' => __('general_words.process_fail')], 204);
@@ -53,7 +57,7 @@ class ClientController extends Controller
         );
     }
 
-    public function update(int $id, Request $request)
+    public function update(int $id, ClientRequest $request)
     {
         $client = Client::find($id);
 
@@ -62,33 +66,67 @@ class ClientController extends Controller
         }
 
         $client->fill($request->all());
+        $client->save();
+
+        $this->relatedTags($request->selectedTags, $client);
 
         return response()->json(
             [
                 'client' => $client->toArray(),
                 'message' => __('general_words.process_success')
             ],
-            201
+            200
         );
     }
 
     public function destroy(int $id)
     {
         try {
-            $removedClients = Client::destroy($id);
+            $client = Client::find($id);
+
+            if (empty($client)) {
+                return response()->json(['message' => __('general_words.not_found')], 404);
+            }
+
+            $client->tags()->detach();
+
+            $client->delete();
+
+            return response()->json(
+                [
+                    'message' => __('general_words.process_success')
+                ],
+                200
+            );
         } catch (\Exception $exception) {
             return response()->json(['message' => __('general_words.process_fail')], 500);
         }
+    }
 
-        if (!$removedClients) {
-            return response()->json(['message' => __('general_words.not_found')], 404);
-        }
+    private function relatedTags(array $tags, Client $client)
+    {
+        $client->tags()->detach();
 
-        return response()->json(
-            [
-                'message' => __('general_words.process_success')
-            ],
-            204
+        $newTags = array_filter(
+            $tags,
+            function ($tag) {
+                return empty($tag['id']);
+            }
         );
+
+        $existingTags = Tag::find(
+            array_column(
+                array_filter(
+                    $tags,
+                    function ($tag) {
+                        return !empty($tag['id']);
+                    }
+                ),
+                'id'
+            )
+        );
+
+        $client->tags()->createMany($newTags);
+        $client->tags()->saveMany($existingTags);
     }
 }

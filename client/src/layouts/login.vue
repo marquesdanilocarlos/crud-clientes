@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white font-family-karla h-screen">
+    <div class="container font-family-karla">
         <slot></slot>
     </div>
 </template>
@@ -20,7 +20,7 @@
                     title: self.$t('success'),
                     description: self.$t(String(message))
                 });
-                setTimeout(() => self.$router.push({name: redirectUrl}), 3000)
+                setTimeout(() => self.$router.push({name: redirectUrl}), 500)
             },
             errorHandler(error) {
                 let self = this;

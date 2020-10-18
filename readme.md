@@ -1,4 +1,4 @@
-## Install
+## Passos para executar a aplicação
 
 ```bash
 No diretório raiz executar os seguintes comandos:

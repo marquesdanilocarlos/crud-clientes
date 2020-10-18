@@ -1,14 +1,13 @@
 <template>
     <loginLayout ref="loginLayout" :registerData="this.registerData" :errors="this.errors">
         <div class="register-form">
-            <h2>{{ $t('register.title') }}</h2>
+            <h1 class="display-4">{{ $t('register.title') }}</h1>
             <Form :registerData="this.registerData" :errors="this.errors" @callRegister="register"></Form>
             <div class="text-center pt-12 pb-12">
                 <p>{{ $t('register.login_info') }}
                     <router-link class="underline font-semibold" :to="{ name: 'login' }">{{ $t('login.title')
                         }}
                     </router-link>
-                    .
                 </p>
             </div>
         </div>

@@ -17,11 +17,11 @@ class CreateClientTagTable extends Migration
         Schema::create(
             'client_tag',
             function (Blueprint $table) {
-                $table->increments('id');
+
                 $table->integer('client_id')->unsigned();
                 $table->integer('tag_id')->unsigned();
-                $table->timestamps();
 
+                $table->primary(array('client_id', 'tag_id'));
                 $table->foreign('client_id')->references('id')->on('clients');
                 $table->foreign('tag_id')->references('id')->on('tags');
             }

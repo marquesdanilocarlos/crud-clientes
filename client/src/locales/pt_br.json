@@ -4,17 +4,20 @@
     "copyright": "Copyright",
 
     "fields": {
+        "name": "Nome",
         "first_name": "Primeiro Nome",
         "last_name": "Último nome",
         "email": "E-Mail",
-        "password": "Senha"
+        "password": "Senha",
+        "tags": "Tags",
+        "tags_placeholder": "Enter para adicionar nova tag"
     },
 
     "register": {
         "title": "Cadastre-se",
         "register_now": "Cadastre-se aqui",
-        "login_info": "Já é cliente",
-        "register_info": "Ainda não é cliente?"
+        "login_info": "Já é possui conta?",
+        "register_info": "Ainda não possui uma conta?"
     },
 
     "login": {
@@ -36,5 +39,11 @@
             "title": "Oops! Não há nada por aqui",
             "body": "A página está temporariamente indisponível."
         }
+    },
+
+    "client": {
+        "index": "Clientes",
+        "create": "Novo cliente",
+        "edit": "Editar cliente"
     }
 }

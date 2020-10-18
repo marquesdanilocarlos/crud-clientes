@@ -12,6 +12,6 @@ class Client extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withPivot('client_id', 'tag_id');
     }
 }

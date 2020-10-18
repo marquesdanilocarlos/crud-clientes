@@ -1,54 +1,77 @@
 <template>
     <form class="needs-validation" novalidate>
         <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="firstName">{{ $t('fields.first_name') }}</label>
-                <input type="text" id="firstName" v-model="registerData.first_name"
-                       :class="{ 'border-pink-400': errors.first_name }"
-                       class="form-control">
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="lastName">{{ $t('fields.last_name') }}</label>
-                <input type="text" id="lastName" v-model="registerData.last_name"
-                       :class="{ 'border-pink-400': errors.last_name }"
+            <div class="col-md-12 mb-3">
+                <label for="firstName">{{ $t('fields.name') }}</label>
+                <input type="text" id="firstName" v-model="clientData.name"
+                       :class="{ 'border-pink-400': errors.name }"
                        class="form-control">
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="email">{{ $t('fields.email') }}</label>
-                <input type="email" id="email" v-model="registerData.email"
+                <input type="email" id="email" v-model="clientData.email"
                        :class="{ 'border-pink-400': errors.email }"
                        class="form-control">
             </div>
             <div class="col-md-6 mb-3">
-                <label for="gender">Sexo</label>
-                <select v-model="registerData.gender"
-                        :class="{ 'border-pink-400': errors.email }" class="custom-select" id="gender" required>
-                    <option selected value="m">Masculino</option>
-                    <option value="f">Feminino</option>
-                </select>
+                <label for="tags">{{ $t('fields.tags') }}</label>
+                <tags-input
+                    :existing-tags="this.tags"
+                    :typeahead="true"
+                    :placeholder="$t('fields.tags_placeholder')"
+                    :typeahead-hide-discard="true"
+                    v-model="clientData.selectedTags"
+                ></tags-input>
             </div>
-            <div class="col-md-12 mb-3">
-                <label for="password">{{ $t('fields.password') }}</label>
-                <input type="password" id="password" v-model="registerData.password"
-                       :class="{ 'border-pink-400': errors.password }"
-                       class="form-control">
-            </div>
-            <button type="submit" v-on:click.prevent="register()"
+            <button v-if="this.$route.name == 'create'" type="button" v-on:click.prevent="callCreate"
                     class="btn btn-primary"> Cadastrar
+            </button>
+            <button v-if="this.$route.name == 'edit'" type="button" v-on:click.prevent="callEdit"
+                    class="btn btn-primary"> Editar
             </button>
         </div>
     </form>
 </template>
 
 <script>
+    import TagsInput from '@voerro/vue-tagsinput';
+
     export default {
         name: "Form",
-        props: ['registerData', 'errors'],
+        components: {TagsInput},
+        props: ['clientData', 'errors'],
+        data() {
+            return {
+                tags: []
+            };
+        },
+        mounted() {
+          this.getExistingTags();
+        },
         methods: {
-            register(){
-                this.$emit("callRegister")
+            callCreate() {
+                this.$emit("callCreate")
+            },
+            callEdit() {
+                this.$emit("callEdit")
+            },
+            getExistingTags() {
+                let self = this;
+                this.$http.get(this.$backendUrl + 'tags')
+                    .then(function (response) {
+                        self.tags =  response.data.map(tag => {
+                            tag['key'] = tag.id;
+                            tag['value'] = tag.name;
+                            delete tag.id;
+                            delete tag.name;
+                            return tag;
+                        });
+                    })
+                    .catch(function (error) {
+                        self.$refs.clientLayout.errorHandler(error, 'create');
+                    });
             }
         }
     }

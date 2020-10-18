@@ -12,6 +12,9 @@ $router->get('clientes/{id}', 'ClientController@show');
 $router->put('clientes/{id}', 'ClientController@update');
 $router->delete('clientes/{id}', 'ClientController@destroy');
 
+
+$router->get('tags', 'TagController@index');
+
 $router->group(['middleware' => 'auth'], function () use ($router) {
 
 });

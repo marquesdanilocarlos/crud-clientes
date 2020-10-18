@@ -13,7 +13,7 @@ class TagTableSeeder extends Seeder
      */
     public function run()
     {
-        $tags = factory(Tag::class, 10)->create();
+        $tags = factory(Tag::class, 5)->create();
 
         Client::all()->each(function ($client) use ($tags){
             $client->tags()->saveMany($tags);
