@@ -14,7 +14,7 @@ services:
       MYSQL_DATABASE: clientes
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-      
+
   api:
     container_name: api
     volumes:
@@ -41,7 +41,7 @@ services:
       - "80:80"
     depends_on:
       - db
-      
+
   client:
     container_name: client
     build:

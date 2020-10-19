@@ -4,10 +4,10 @@
             <form action="#" method="post">
                 <h2 class="text-center">{{ $t('login.title') }}</h2>
                 <div class="form-group">
-                    <input type="text" v-model="loginData.email" :class="{ 'border-pink-400': errors.email }" class="form-control" placeholder="E-mail" required="required">
+                    <input type="text" v-model="loginData.email" :class="{ 'invalid': errors.email }" class="form-control" placeholder="E-mail" required="required">
                 </div>
                 <div class="form-group">
-                    <input type="password" v-model="loginData.password" :class="{ 'border-pink-400': errors.password }" class="form-control" placeholder="Senha" required="required">
+                    <input type="password" v-model="loginData.password" :class="{ 'invalid': errors.password }" class="form-control" placeholder="Senha" required="required">
                 </div>
                 <div class="form-group">
                     <button v-on:click.prevent="login()" type="submit" class="btn btn-primary btn-block">Entrar</button>
