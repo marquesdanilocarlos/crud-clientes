@@ -6,6 +6,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="display-4">{{ $t('client.index') }}</h1>
                         <div class="d-flex">
+
                             <button class="btn btn-success mr-3" @click="createClient">
                                 <i class="fas fa-plus "></i> {{ $t('client.create') }}
                             </button>
@@ -13,6 +14,11 @@
                                 <i class="fas fa-sign-out-alt mr-3"></i> {{ $t('logout.title') }}
                             </button>
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="filterInput" class="mr-2">Filtrar: </label>
+                        <input id="filterInput" class="form-control mb-3" type="text" ref="filterInput"
+                               @keyup="filterClient"/>
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -61,6 +67,22 @@
             editClient(id) {
                 this.$router.push({name: 'edit', params: {id: id}});
             },
+            filterClient() {
+                let term = this.$refs.filterInput.value;
+                let timer = null;
+                let self = this;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    let url = term ? `${this.$backendUrl}clientes/${term}/filtrar` : `${this.$backendUrl}clientes`;
+                    this.$http.get(url)
+                        .then(function (response) {
+                            self.clients = response.data;
+                        })
+                        .catch(function (error) {
+                            self.$refs.clientLayout.errorHandler(error);
+                        });
+                }, 500);
+            },
             deleteClient(id) {
                 let confirm = window.confirm('Deseja realmente deletar este cliente?');
                 if (confirm) {
@@ -81,7 +103,7 @@
         },
         mounted() {
             let self = this;
-            this.$http.get(this.$backendUrl + 'clientes')
+            this.$http.get(`${this.$backendUrl}clientes`)
                 .then(function (response) {
                     self.clients = response.data;
                 })

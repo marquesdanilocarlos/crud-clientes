@@ -21,6 +21,17 @@ class ClientController extends Controller
         return response()->json($clients);
     }
 
+    public function clientsByName(string $name)
+    {
+        $clients = Client::where('name', 'like', "$name%")->get()->toArray();
+
+        if (empty($clients)) {
+            return response()->json(['message' => __('general_words.process_fail')], 204);
+        }
+
+        return response()->json($clients);
+    }
+
     public function store(ClientRequest $request)
     {
         $client = new Client($request->all());
