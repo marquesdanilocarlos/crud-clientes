@@ -14,26 +14,13 @@ services:
       MYSQL_DATABASE: clientes
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-
-  nginx:
-    container_name: nginx
-    build: images/nginx
+      
+  api:
+    container_name: api
     volumes:
       - ./api:/var/www/html
-    command: nginx -g "daemon off;"
-    links:
-      - php
-    ports:
-      - "80:80"
-    depends_on:
-      - db
-
-  php:
-    container_name: php
-    build: images/php
-    volumes:
-      - ./api:/var/www/html
-    working_dir: /var/www/html/app/public
+    build: ./images/php
+    working_dir: /var/www/html/public
     command: php-fpm
     links:
       - db:db
@@ -41,3 +28,33 @@ services:
       - "9000:9000"
     depends_on:
       - db
+
+  nginx:
+    container_name: nginx
+    build: ./images/nginx
+    volumes:
+      - ./api:/var/www/html
+    command: nginx -g "daemon off;"
+    links:
+      - api
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+      
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: ../images/vue/Dockerfile
+    expose:
+       - 8081
+    volumes:
+      - ./client:/app
+    working_dir: /app/dist
+    links:
+      - api:api
+    ports:
+      - "8081:8081"
+    depends_on:
+      - api
