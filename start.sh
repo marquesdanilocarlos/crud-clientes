@@ -4,6 +4,7 @@ cd api/;
 cp .env.example .env;
 cd ../client;
 cp .env.example .env;
+cd ../;
 
 docker-compose up -d;
 docker-compose exec -w /var/www/html api composer install;
