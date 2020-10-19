@@ -8,7 +8,10 @@ Copiar o arquivo .env.example para .env
 No diretório "client" executar os seguintes passos:
 Copiar o arquivo .env.example para .env
 
-No diretório raiz executar os seguintes comandos:
+No diretório raiz executar o script start.sh com o comando:
+./start.sh
+
+Ou executar os comandos em separado:
 docker-compose up -d
 docker-compose exec -w /var/www/html api composer install
 docker-compose exec api php /var/www/html/artisan migrate --seed
