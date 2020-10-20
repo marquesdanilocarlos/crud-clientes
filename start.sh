@@ -13,9 +13,9 @@ docker-compose exec -w /var/www/html api composer install;
 docker-compose exec client npm i;
 #Constrói a app frontend
 docker-compose exec client npm run build;
-#Executa os testes unitários
-docker-compose exec -w /var/www/html api ./vendor/bin/phpunit
 #Executa as migrations
 docker-compose exec api php /var/www/html/artisan migrate --seed;
+#Executa os testes unitários
+docker-compose exec -w /var/www/html api ./vendor/bin/phpunit
 #Sobe o servidor da app frontend
 docker-compose exec client http-server -p 8081 --proxy http://localhost:8081?;
